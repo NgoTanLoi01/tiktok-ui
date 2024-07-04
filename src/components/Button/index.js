@@ -27,7 +27,7 @@ function Button({
         ...passProps,
     };
 
-    //Remove event listener when is disabled
+    // Remove event listener when btn is disabled
     if (disabled) {
         Object.keys(props).forEach((key) => {
             if (key.startsWith('on') && typeof props[key] === 'function') {
@@ -49,8 +49,8 @@ function Button({
         primary,
         outline,
         text,
-        rounded,
         disabled,
+        rounded,
         small,
         large,
     });

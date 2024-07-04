@@ -10,9 +10,11 @@ import {
     faSignOut,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
+import routesConfig from '~/config/routes';
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
@@ -45,7 +47,7 @@ const MENU_ITEMS = [
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-        title: 'Feedback and Help',
+        title: 'Feedback and help',
         to: '/feedback',
     },
     {
@@ -57,11 +59,11 @@ const MENU_ITEMS = [
 function Header() {
     const currentUser = true;
 
-    // Handle Logic
-    const handleMenuChange = (MenuItem) => {
-        switch (MenuItem.type) {
+    // Handle logic
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
             case 'language':
-                //Handle change language
+                // Handle change language
                 break;
             default:
         }
@@ -95,24 +97,31 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <img src={images.logo} alt="Tiktok" />
+                <Link to={routesConfig.home} className={cx('logo-link')}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
 
                 <Search />
 
                 <div className={cx('actions')}>
                     {currentUser ? (
                         <>
-                            <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
+                            <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
                                 <button className={cx('action-btn')}>
                                     <UploadIcon />
                                 </button>
                             </Tippy>
-                            <button className={cx('action-btn')}>
-                                <InboxIcon />
-                            </button>
-                            <button className={cx('action-btn')}>
-                                <MessageIcon />
-                            </button>
+                            <Tippy delay={[0, 50]} content="Message" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <InboxIcon />
+                                    <span className={cx('badge')}>12</span>
+                                </button>
+                            </Tippy>
                         </>
                     ) : (
                         <>
@@ -125,9 +134,8 @@ function Header() {
                         {currentUser ? (
                             <Image
                                 className={cx('user-avatar')}
-                                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/f68a312ef26213fda69ec4342b4d6848~c5_100x100.jpeg?lk3s=a5d48078&nonce=86563&refresh_token=ed5213fc80a4b5cd74948def3b984b08&x-expires=1719910800&x-signature=GpLU0aube804BPz%2B7eYgWpoPUok%3D&shp=a5d48078&shcp=81f88b70"
+                                src="https://avatars.githubusercontent.com/u/112923143?v=4"
                                 alt="Nguyen Van A"
-                                fallback="https://avatars.githubusercontent.com/u/112923143?v=4"
                             />
                         ) : (
                             <button className={cx('more-btn')}>
